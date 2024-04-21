@@ -20,7 +20,7 @@ $(document).ready(function () {
         amplitude: 1,
         speed: 0.3,
         autostart: true
-      });
+    });
 
     // Siri message animation
     $('.siri-message').textillate({
@@ -35,5 +35,14 @@ $(document).ready(function () {
             sync: true,
         },
 
+    });
+
+    // mic button click event
+
+    $("#MicBtn").click(function () { 
+            // eel.playAssistantSound()
+            $("#Oval").attr("hidden", true);
+            $("#SiriWave").attr("hidden", false);
+            // eel.allCommands()()
     });
 })
