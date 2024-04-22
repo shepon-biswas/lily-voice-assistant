@@ -1,6 +1,7 @@
 import pyttsx3
 import speech_recognition as spchr
 import eel
+import time
 
 
 def speak(text):
@@ -8,11 +9,11 @@ def speak(text):
     voices = engine.getProperty('voices')
     engine.setProperty('voice', voices[1].id)
     engine.setProperty('rate', 174)
-
+    eel.DisplayMessage(text)
     engine.say(text)
     engine.runAndWait()
 
-@eel.expose
+
 def takeCommand():
     recog = spchr.Recognizer()
     with spchr.Microphone() as source:
@@ -28,13 +29,18 @@ def takeCommand():
         query = recog.recognize_google(audio, language='en-us')
         print(f"user said: {query}")
         eel.DisplayMessage(query)
-        speak(query)
-        eel.Showhood()
     except Exception as e:
         return ""
     return query.lower()
 
+@eel.expose
+def allCommands():
+    query = takeCommand()
+    print(query)
 
-# text = takeCommand()
-
-# speak(text)
+    if "open" in query:
+        from engine.features import openCommand
+        openCommand(query)
+    else:
+        print("Something wrent wrong!")
+    eel.Showhood()
