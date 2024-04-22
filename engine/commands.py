@@ -29,6 +29,7 @@ def takeCommand():
         print(f"user said: {query}")
         eel.DisplayMessage(query)
         speak(query)
+        eel.Showhood()
     except Exception as e:
         return ""
     return query.lower()

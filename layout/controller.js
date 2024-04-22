@@ -5,6 +5,12 @@ $(document).ready(function(){
 
         $(".siri-message li:first").text(message);
         $('.siri-message').textillate('start');
+    }
 
+    // Display hood after completed a command
+    eel.expose(Showhood)
+    function Showhood(){
+        $("#Oval").attr("hidden", false);
+        $("#SiriWave").attr("hidden", true);
     }
 })
