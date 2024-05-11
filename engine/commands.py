@@ -5,6 +5,7 @@ import time
 
 
 def speak(text):
+    text = str(text)
     engine = pyttsx3.init('sapi5')
     voices = engine.getProperty('voices')
     engine.setProperty('voice', voices[1].id)
@@ -52,9 +53,9 @@ def allCommands(message=1):
         elif "on youtube" in query:
             from engine.features import playYoutube
             playYoutube(query)
-
         else:
-            print("Something wrent wrong...")
+            from engine.features import chatBot
+            chatBot(query)
     except:
         print("Something went wrong!")      
     eel.Showhood()

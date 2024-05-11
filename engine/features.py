@@ -11,6 +11,7 @@ from engine.config import ASSISTANT_NAME
 import pywhatkit as kit
 from engine.helper import extractYtTerm
 import pvporcupine
+from hugchat import hugchat
 
 
 # Import Database
@@ -53,13 +54,6 @@ def openCommand(query):
         except:
             speak("some thing went wrong")
 
-
-    # if query!= "":
-    #     speak("opening" +query)
-    #     os.system("start" +query)
-
-    # else:
-    #     speak("Command not found!")
 
 def playYoutube(query):
     searchTerm = extractYtTerm(query)
@@ -107,3 +101,27 @@ def hotword():
             audio_stream.close()
         if paud is not None:
             paud.terminate()
+
+# HugChat- AI chat box
+def split_into_sentences(text):
+    # Use regular expression to split text into sentences based on punctuation
+    sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|\!)\s', text)
+    return sentences
+
+def chatBot(query):
+    user_input = query.lower()
+    chatbot = hugchat.ChatBot(cookie_path="engine\cookies.json")
+    ChatID = chatbot.new_conversation()
+    chatbot.change_conversation(ChatID)
+    botResponse =  chatbot.chat(user_input)
+    response_to_string  = str(botResponse)
+    # Split the response into sentences
+    sentences = split_into_sentences(response_to_string)
+    
+    # Select only the first 5 sentences
+    first_3_sentences = ' '.join(sentences[:3])
+    
+    print(first_3_sentences)
+    speak(first_3_sentences)
+    return first_3_sentences
+
